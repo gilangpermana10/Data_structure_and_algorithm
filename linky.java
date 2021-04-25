@@ -1,3 +1,7 @@
+//gilang permana
+//TI20Regular A
+//20200040041
+
 package list;
 
 public class linky {
