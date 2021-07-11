@@ -1,18 +1,54 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class HapusStringArray {
-    public static String Teks[] = {"Saya", "sedang","belajar","struktur","data"};
 
-    public static void main(String[] args) {
+    static  String arrayToString(ArrayList<String> sources) {
+        String hasil  = "";
 
-        for(int i=0; i < Teks.length;i++ ){
-            System.out.println(Teks[i]+" ");
+        for (String source : sources) {
+            hasil += (source + " ");
         }
-        
-        Scanner baca = new Scanner(System.in);
-        System.out.println("Masukan indeks yang akan dihapus : ");
-        int in = baca.nextInt();
 
-        
+        return hasil;
+    }
+
+    static ArrayList<String> teksToArray(String teks) {
+        ArrayList<String> kalimat = new ArrayList<>();
+        for(int i = 0; i < teks.length(); i++) {
+            if(!Character.toString(teks.charAt(i)).toLowerCase().equals(" ")) {
+                if(i == 0) {
+                    kalimat.add(Character.toString(teks.charAt(i)));
+                } else {
+                    if(Character.toString(teks.charAt(i - 1)).toLowerCase().equals(" ")) {
+                        kalimat.add(Character.toString(teks.charAt(i)));
+                    } else {
+                        kalimat.set(kalimat.size() - 1, kalimat.get(kalimat.size() - 1) + teks.charAt(i));
+                    }
+                }
+            }
+        }
+        return kalimat;
+    }
+
+    static void removeteks(String teks, String teksToBeRemoved, Integer posisi) {
+        ArrayList<String> fixkalimat = teksToArray(teks);
+        ArrayList<String> deletedkalimat = new ArrayList<>();
+
+        for(int i = 0; i < fixkalimat.size(); i++) {
+            if(!((i + 1) == posisi && fixkalimat.get(i).toLowerCase().equals(teksToBeRemoved))) {
+                deletedkalimat.add(fixkalimat.get(i));
+            }
+        }
+
+        if(fixkalimat.size() == deletedkalimat.size()) {
+            System.out.println("Penghapusan kata gagal dilakukan, karena indeks ke "+ posisi +" bukan "+ teksToBeRemoved +".");
+        }
+        System.out.println(arrayToString(deletedkalimat));
+    }
+
+    public static void main(String args[]) {
+        removeteks("Saya sedang belajar struktur data", "sedang", 2);
+        removeteks("Saya sedang belajar struktur data", "struktur", 3);
+        removeteks("Pemrograman itu sangat mudah", "itu", 2);
     }
 }
