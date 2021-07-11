@@ -29,6 +29,5 @@ public class NumberOne {
     System.out.println(Result.getPosition(10, numbers));
     System.out.println(Result.getPosition(11, numbers));
 
-
   }
 }
